@@ -9,8 +9,9 @@ class ToDoItemViewHolder(var itemView: View) : RecyclerView.ViewHolder(itemView)
     val toDoIndexView : TextView = itemView.findViewById(R.id.itemNr)
     val toDoContentView :  TextView = itemView.findViewById(R.id.itemValue)
 
-    fun BindValues(index: Int, value: String) {
+    fun BindValues(index: Int, value: ToDoListItem) {
         toDoIndexView.text = index.toString()
-        toDoContentView.text = value
+        value.index = index
+        toDoContentView.text = value.description
     }
 }

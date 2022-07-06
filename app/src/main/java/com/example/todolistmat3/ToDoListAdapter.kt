@@ -2,11 +2,10 @@ package com.example.todolistmat3
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import org.w3c.dom.Text
 
-class ToDoListAdapter(val inputList: List<String>) : RecyclerView.Adapter<ToDoItemViewHolder>() {
+class ToDoListAdapter(private var inputList: MutableList<ToDoListItem>) : RecyclerView.Adapter<ToDoItemViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToDoItemViewHolder {
         val item = LayoutInflater.from(parent.context).inflate(R.layout.recycler_todoitemview , parent, false)
         return ToDoItemViewHolder(item)
@@ -20,8 +19,18 @@ class ToDoListAdapter(val inputList: List<String>) : RecyclerView.Adapter<ToDoIt
         return inputList.size
     }
 
-    fun addNewItem(toString: String) {
-
+    fun addNewItem(itemDescrToAdd: String) {
+        inputList.add(
+            if (itemDescrToAdd.isEmpty())
+                ToDoListItem(inputList.size + 1, "New item ${inputList.size + 1}", mutableListOf())
+            else
+                ToDoListItem(inputList.size + 1, itemDescrToAdd, mutableListOf())
+        )
+        notifyItemInserted(inputList.size - 1)
     }
 
+    fun resetToDoList(newToDoList: MutableList<ToDoListItem>) {
+        inputList = newToDoList
+    }
 }
+
