@@ -3,26 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/TaskListFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.todolistmat3.FirstFragment"
+        android:id="@+id/ToDoListFragment"
+        android:name="com.example.todolistmat3.ToDoListFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
-
-        <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+        tools:layout="@layout/fragment_todolist">
+        <argument android:name="taskList"
+            app:argType="com.example.todolistmat3.ToDoListItem" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
+        android:id="@+id/TaskListFragment"
         android:name="com.example.todolistmat3.SecondFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/fragment_tasklist">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_TaskListFragment_to_ToDoListFragment3"
+            app:destination="@id/ToDoListFragment" />
     </fragment>
 </navigation>

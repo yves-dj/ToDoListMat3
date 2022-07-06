@@ -4,7 +4,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class ToDoItemViewHolder(var itemView: View) : RecyclerView.ViewHolder(itemView) {
+class ToDoItemViewHolder(var itemView: View, /*var onClickListener: ToDoListAdapter.ToDoListOnClickListener*/) : RecyclerView.ViewHolder(itemView) {
 
     val toDoIndexView : TextView = itemView.findViewById(R.id.itemNr)
     val toDoContentView :  TextView = itemView.findViewById(R.id.itemValue)

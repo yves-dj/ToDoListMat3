@@ -1,8 +1,10 @@
 package com.example.todolistmat3
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
+import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -82,6 +84,19 @@ class LaunchActivity : AppCompatActivity() {
             }
             .create()
             .show()
+    }
+
+    private fun goToDetails(view: View) {
+        val intent = Intent(this, DetailActivity::class.java).apply {
+            val chars = ('a'..'z')
+            for (i in 0..4) {
+                for (singleList in thingsToDo) {
+                    singleList.taskList.add(List(9) { chars.random()}.joinToString { "" })
+                }
+            }
+//            putExtra(LaunchActivity.INTENT_LIST_KEY, thingsToDo)
+        }
+        startActivity(intent)
     }
 
 }

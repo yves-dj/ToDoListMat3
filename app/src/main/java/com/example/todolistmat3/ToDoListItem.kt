@@ -1,8 +1,8 @@
 package com.example.todolistmat3
 
-class ToDoListItem(index: Int, description: String, taskList: MutableList<String>) {
-    var index = index
-    var description = description
-    var taskList = taskList
-    // the above can be removed
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+class ToDoListItem(var index: Int, var description: String, var taskList: MutableList<String>) : Parcelable{
 }
