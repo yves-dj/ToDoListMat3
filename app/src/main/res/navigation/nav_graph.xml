@@ -3,24 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/TaskListFragment">
+    app:startDestination="@id/ToDoListFragment">
 
     <fragment
         android:id="@+id/ToDoListFragment"
         android:name="com.example.todolistmat3.ToDoListFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_todolist">
-        <argument android:name="taskList"
-            app:argType="com.example.todolistmat3.ToDoListItem" />
+        <action
+            android:id="@+id/action_ToDoListFragment_to_TaskListFragment3"
+            app:destination="@id/DetailFragment" />
     </fragment>
     <fragment
-        android:id="@+id/TaskListFragment"
-        android:name="com.example.todolistmat3.SecondFragment"
+        android:id="@+id/DetailFragment"
+        android:name="com.example.todolistmat3.DetailFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_tasklist">
-
-        <action
-            android:id="@+id/action_TaskListFragment_to_ToDoListFragment3"
-            app:destination="@id/ToDoListFragment" />
+        <argument
+            android:name="toDoListItem"
+            app:argType="com.example.todolistmat3.ToDoListItem" />
     </fragment>
 </navigation>

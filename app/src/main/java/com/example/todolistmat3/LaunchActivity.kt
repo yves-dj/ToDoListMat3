@@ -30,25 +30,25 @@ class LaunchActivity : AppCompatActivity() {
         setContentView(R.layout.activity_launch)
 
 //        thingsToDo = mutableListOf<String>("Kuisen", "Koken", "Vetzakkerij", "Niks doen")
-        var firstThing = ToDoListItem(0, "Kuisen", mutableListOf())
-        var secondThing = ToDoListItem(0, "Koken", mutableListOf())
-        thingsToDo.add(firstThing)
-        thingsToDo.add(secondThing)
-
-
-        recyclerView = findViewById(R.id.toDoListView)
-        recyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
-            toDoListAdapter = ToDoListAdapter(thingsToDo)
-            adapter = toDoListAdapter
-        }
-
-        dataMngr = ListDataManager(this)
-
-        fab = findViewById(R.id.fabAddToList)
-        fab.setOnClickListener {
-            createDialogue()
-        }
+//        var firstThing = ToDoListItem(0, "Kuisen", mutableListOf())
+//        var secondThing = ToDoListItem(0, "Koken", mutableListOf())
+//        thingsToDo.add(firstThing)
+//        thingsToDo.add(secondThing)
+//
+//
+//        recyclerView = findViewById(R.id.toDoListView)
+//        recyclerView.apply {
+//            layoutManager = LinearLayoutManager(context)
+//            toDoListAdapter = ToDoListAdapter(thingsToDo)
+//            adapter = toDoListAdapter
+//        }
+//
+//        dataMngr = ListDataManager(this)
+//
+//        fab = findViewById(R.id.fabAddToList)
+//        fab.setOnClickListener {
+//            createDialogue()
+//        }
     }
 
     override fun onStart() {

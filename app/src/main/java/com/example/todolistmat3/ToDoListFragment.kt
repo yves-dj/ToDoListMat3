@@ -8,8 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todolistmat3.databinding.FragmentTodolistBinding
 
@@ -28,7 +34,28 @@ class ToDoListFragment : Fragment() {
 
     private lateinit var toDoListAdapter: ToDoListAdapter
 
+    private var hasLoadedList = false
+
     private lateinit var dataMngr : ListDataManager
+
+    private lateinit var viewModel: ListDataViewModel
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(ListDataViewModel::class.java)
+        viewModel.taskList.observe(this) {
+            toDoListAdapter.inputList = ArrayList(it)
+            toDoListAdapter.notifyDataSetChanged()
+        }
+
+//        if (!hasLoadedList) {
+//            binding.fragmentRecycle.adapter = toDoListAdapter
+//            hasLoadedList = true
+//        }
+//
+//        viewModel.readToDoList()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +63,7 @@ class ToDoListFragment : Fragment() {
     ): View? {
 
         var firstThing = ToDoListItem(0, "Kuisen", mutableListOf())
-        var secondThing = ToDoListItem(0, "Koken", mutableListOf())
+        var secondThing = ToDoListItem(1, "Koken", mutableListOf())
         thingsToDo.add(firstThing)
         thingsToDo.add(secondThing)
 
@@ -53,14 +80,18 @@ class ToDoListFragment : Fragment() {
 
         with(binding.fragmentRecycle) {
             layoutManager = LinearLayoutManager(context)
-            toDoListAdapter = ToDoListAdapter(thingsToDo)
+            toDoListAdapter = ToDoListAdapter(thingsToDo) { selectedToDoList ->
+                navigateToTaskList(selectedToDoList, view)
+            }
             adapter = toDoListAdapter
         }
 
 
         binding.fragmentFab.setOnClickListener{
             createDialogue(view.context)
+//            navigateToTaskList(thingsToDo[0])
         }
+        viewModel.readToDoList()
     }
 
     override fun onDestroyView() {
@@ -79,9 +110,17 @@ class ToDoListFragment : Fragment() {
             .setMessage("")
             .setView(toDoEditText) // Adds specified view to alertDialogue
             .setPositiveButton(R.string.alertDialoguePositive) { dialog, _ ->
-                toDoListAdapter.addNewItem(toDoEditText.text.toString())
+                viewModel.saveToDoList(ToDoListItem(thingsToDo.size - 1, toDoEditText.text.toString(), mutableListOf()))
+//                toDoListAdapter.addNewItem(toDoEditText.text.toString())
                 dialog.dismiss()
             }
             .create()
             .show()
-    }}
+    }
+
+    private fun navigateToTaskList(listItem: ToDoListItem, view: View) {
+        Toast.makeText(view.context, "listItem ${listItem.index} clicked", Toast.LENGTH_LONG).show()
+        val action = ToDoListFragmentDirections.actionToDoListFragmentToTaskListFragment3(listItem)
+        findNavController().navigate(action)
+    }
+}

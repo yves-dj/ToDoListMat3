@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class ToDoListAdapter(private var inputList: MutableList<ToDoListItem>/*, val onClickListener: ToDoListOnClickListener*/) : RecyclerView.Adapter<ToDoItemViewHolder>() {
+class ToDoListAdapter(var inputList: MutableList<ToDoListItem>, val onClickListener: ToDoListOnClickListener) : RecyclerView.Adapter<ToDoItemViewHolder>() {
 
     fun interface ToDoListOnClickListener {
         fun addOnClickListener(toDoListItem: ToDoListItem)
@@ -12,7 +12,7 @@ class ToDoListAdapter(private var inputList: MutableList<ToDoListItem>/*, val on
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ToDoItemViewHolder {
         val item = LayoutInflater.from(parent.context).inflate(R.layout.recycler_todoitemview , parent, false)
-        return ToDoItemViewHolder(item)
+        return ToDoItemViewHolder(item, onClickListener)
     }
 
     override fun onBindViewHolder(holder: ToDoItemViewHolder, position: Int) {

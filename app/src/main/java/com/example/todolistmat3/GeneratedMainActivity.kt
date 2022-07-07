@@ -10,6 +10,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import androidx.navigation.fragment.findNavController
 import com.example.todolistmat3.databinding.ActivityMainBinding
 
 class GeneratedMainActivity : AppCompatActivity() {
@@ -26,9 +27,11 @@ class GeneratedMainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
+//        val navController = findNavController(R.id.nav_host_fragment_content_main)
+        val navController = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main)?.findNavController()?.let {
+            appBarConfiguration = AppBarConfiguration(it.graph)
+            setupActionBarWithNavController(it, appBarConfiguration)
+        }
 
 //        binding.fab.setOnClickListener { view ->
 //            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
