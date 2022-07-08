@@ -6,8 +6,9 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.preference.PreferenceManager
+import androidx.room.Database
 
-class ListDataViewModel(application: Application) : AndroidViewModel(application) {
+class ListDataViewModel(var database: Database, application: Application) : AndroidViewModel(application) {
 
     private val context: Context = application.applicationContext
 
@@ -17,13 +18,14 @@ class ListDataViewModel(application: Application) : AndroidViewModel(application
 
 
     fun saveToDoList(toDoListItem: ToDoListItem) {
-        PreferenceManager.getDefaultSharedPreferences(context)
-            .edit()
-            .putStringSet(toDoListItem.description, toDoListItem.taskList.toHashSet())
-            .putInt("position_${toDoListItem.description}", toDoListItem.index)
-            .apply()
-
-        readToDoList()
+//        PreferenceManager.getDefaultSharedPreferences(context)
+//            .edit()
+//            .putStringSet(toDoListItem.description, toDoListItem.taskList.toHashSet())
+//            .putInt("position_${toDoListItem.description}", toDoListItem.index)
+//            .apply()
+//
+//        readToDoList()
+        database.
     }
 
     fun readToDoList() {

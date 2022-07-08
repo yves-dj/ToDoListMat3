@@ -36,7 +36,7 @@ class ToDoListFragment : Fragment() {
 
     private var hasLoadedList = false
 
-    private lateinit var dataMngr : ListDataManager
+//    private lateinit var dataMngr : ListDataManager
 
     private lateinit var viewModel: ListDataViewModel
 
@@ -62,6 +62,7 @@ class ToDoListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        // Doesnt work
         var firstThing = ToDoListItem(0, "Kuisen", mutableListOf())
         var secondThing = ToDoListItem(1, "Koken", mutableListOf())
         thingsToDo.add(firstThing)
@@ -76,7 +77,7 @@ class ToDoListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        dataMngr = ListDataManager(view.context)
+//        dataMngr = ListDataManager(view.context)
 
         with(binding.fragmentRecycle) {
             layoutManager = LinearLayoutManager(context)
@@ -120,6 +121,14 @@ class ToDoListFragment : Fragment() {
 
     private fun navigateToTaskList(listItem: ToDoListItem, view: View) {
         Toast.makeText(view.context, "listItem ${listItem.index} clicked", Toast.LENGTH_LONG).show()
+        // Does not work
+        if (listItem.taskList.size == 0) {
+            val chars = ('a'..'z')
+            for (i in 0..4) {
+                listItem.taskList.add(List(9) { chars.random()}.joinToString { "" })
+            }
+            toDoListAdapter.notifyDataSetChanged()
+        }
         val action = ToDoListFragmentDirections.actionToDoListFragmentToTaskListFragment3(listItem)
         findNavController().navigate(action)
     }
